@@ -1,6 +1,7 @@
 package com.example.kp_assignment.service;
 
 import com.example.kp_assignment.common.Constant;
+import com.example.kp_assignment.common.GlobalException;
 import com.example.kp_assignment.dto.SpreadDto;
 import com.example.kp_assignment.entity.Receive;
 import com.example.kp_assignment.entity.Spread;
@@ -15,8 +16,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 @Service
-public class ScatterService {
+public class SpreadService {
 
     @Autowired
     SpreadRepository spreadRepository;
@@ -43,14 +45,15 @@ public class ScatterService {
         return token;
     }
 
+
     private String checkDuplicateToken() {
         String token = Util.createToken();
-        String result = spreadRepository.findByToken(token);
+        Spread result = spreadRepository.findByToken(token);
         if (result != null) {
             int i = 0;
             while (Constant.TOKEN_MAKE_TRY_COUNT < i) {
                 if (i > 10) {
-                    new Throwable();
+                    throw new GlobalException("don't have enough space for token :: 500");
                 }
                 token = Util.createToken();
                 result = spreadRepository.findByToken(token);

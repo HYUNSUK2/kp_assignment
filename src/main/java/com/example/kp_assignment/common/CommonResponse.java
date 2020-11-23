@@ -9,4 +9,5 @@ public class CommonResponse {
     private HttpCode status;
     private String message;
     private Object data;
+
 }
