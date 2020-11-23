@@ -59,7 +59,6 @@ public class SpreadController {
                 .data(receiveService.searchHistory(userId, token))
                 .build();
 
-
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

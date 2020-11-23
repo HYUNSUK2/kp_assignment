@@ -75,18 +75,16 @@ public class SpreadService {
         int peopleNumber = spreadDto.getPeopleNumber();
 
         long divideMoney = amount / peopleNumber;
-        long leftMoney = amount - divideMoney * peopleNumber - 1;
+        long leftMoney = amount - divideMoney * (peopleNumber - 1);
 
         for (int i = 0; i < peopleNumber; i++) {
-            if (peopleNumber == i) {
+            if (peopleNumber - 1 == i) {
                 divideMoney = leftMoney;
             }
             Receive receive = Receive.builder()
                     .spreadId(user).roomId(roomId).receivedAmount(divideMoney)
                     .token(token).createdTime(localDateTime).build();
             receiveList.add(receive);
-
-            System.out.println(divideMoney);
         }
         receiveRepository.saveAll(receiveList);
     }

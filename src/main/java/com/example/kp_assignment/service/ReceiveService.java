@@ -7,6 +7,7 @@ import com.example.kp_assignment.entity.Receive;
 import com.example.kp_assignment.entity.Spread;
 import com.example.kp_assignment.repository.ReceiveRepository;
 import com.example.kp_assignment.repository.SpreadRepository;
+import org.hibernate.LockMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,7 +51,7 @@ public class ReceiveService {
         amount = spread.getAmount();
         calAmount = amount;
 
-        List<Receive> receives = receiveRepository.findByTokenAndSpreadId(token, userId);
+        List<Receive> receives = receiveRepository.findByTokenAndSpreadIdAndReceiveIdIsNotNull(token, userId);
         List<ReceiveDto> receiveDtos = new ArrayList<>();
 
         for( Receive receive : receives){

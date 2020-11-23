@@ -21,7 +21,7 @@ public class Util {
             case 1:
                 return (char) (SECURE_RANDOM.nextInt(26) + 65);
             default:
-                return (char) (SECURE_RANDOM.nextInt(62) + 65);
+                return (char) (SECURE_RANDOM.nextInt(26) + 97);
         }
     }
 }
